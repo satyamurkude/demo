@@ -1,0 +1,149 @@
+:root,
+*::before,
+*::after {
+    --diameter: 150px;
+    --font_size: 100px;
+    --background_color: #00bbff;
+    --font_color: rgb(250, 171, 181);
+    --neon-glow: rgb(252, 0, 0);
+}
+
+:root,
+*::before,
+*::after {
+
+    --wobble: calc(0.5 * var(--diameter));
+    --pc05: calc(0.025 * var(--diameter));
+    --pc10: calc(0.05 * var(--diameter));
+    --pc15: calc(0.075 * var(--diameter));
+    --pc20: calc(0.1 * var(--diameter));
+    --pc25: calc(0.125 * var(--diameter));
+    --pc30: calc(0.15 * var(--diameter));
+
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#wave {
+    position: absolute;
+    left: -100vw;
+    top: 0;
+    width: 200vw;
+    height: 100px;
+    background: #002266;
+    overflow: hidden;
+    animation: flow 10s linear 1s infinite forwards;
+}
+
+@keyframes flow {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: translate(100vw);
+    }
+}
+
+#bubbles {
+    position: absolute;
+    left: 0;
+    top: 100px;
+    width: 100vw;
+    height: 100vh;
+    background: var(--background_color);
+}
+
+.b0 {
+    --bubble_index: 0;
+}
+
+.b1 {
+    --bubble_index: 1;
+}
+
+.b2 {
+    --bubble_index: 2;
+}
+
+.b3 {
+    --bubble_index: 3;
+}
+
+.b4 {
+    --bubble_index: 4;
+}
+
+.b5 {
+    --bubble_index: 5;
+}
+
+
+
+.bubble {
+    position: absolute;
+    left: calc(var(--bubble_index) * var(--diameter));
+    height: var(--diameter);
+    width: var(--diameter);
+    color: var(--font_color);
+    font-size: var(--font_size);
+    line-height: var(--diameter);
+    text-align: center;
+    margin-top: 100vh;
+    text-shadow: 0 0 4px var(--neon-glow),
+        0 0 2.5vmin var(--neon-glow),
+        0 0 5vmin var(--neon-glow),
+        0 0 10vmin var(--neon-glow),
+        0 0 15vmin var(--neon-glow);
+
+    --delay: calc(0.75s * var(--bubble_index));
+
+    animation: rise 10s linear var(--delay) infinite, sideways 2s ease-in-out var(--delay) infinite alternate;
+}
+
+.bubble:before {
+    position: absolute;
+    left: 0%;
+    height: var(--diameter);
+    width: 100%;
+    border-radius: 50%;
+    content: "";
+    box-shadow: 0 var(--pc20) var(--pc30) rgba(0, 0, 0, 0.2), inset 0 var(--pc10) var(--pc30) 5px rgba(255, 255, 255, 1);
+
+}
+
+.bubble:after {
+    position: absolute;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+    border-radius: 50%;
+    content: "";
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+    box-shadow: inset 0 var(--pc20) var(--pc30) rgba(255, 255, 255, 0.3);
+}
+
+@keyframes rise {
+    0% {
+        margin-top: 100vh;
+    }
+
+    100% {
+        margin-top: -100px;
+    }
+}
+
+@keyframes sideways {
+    0% {
+        transform: translateX(0) rotate(-10deg);
+    }
+
+    100% {
+        transform: translateX(var(--wobble)) rotate(10deg);
+    }
+}
